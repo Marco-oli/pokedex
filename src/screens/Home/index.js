@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Image, StyleSheet, FlatList, View, Text} from 'react-native';
 import {Input} from 'react-native-elements';
 import api from '../../services/api';
 
 // Components
-import {Title, Description, PokemonType} from '../../assets/Typography';
+import {Title, Description, Name, PokemonNumber} from '../../assets/Typography';
 import Badges from '../../components/Badges';
 
 // Styles and Images
@@ -17,29 +17,34 @@ import {
   iconSearch,
   grass,
 } from '../../assets/images';
+import {types} from '@babel/core';
 
 const Home = () => {
   const [search, setSearch] = useState('');
-  const [pokemons, setPokemons] = useState(null);
+  const [pokemons, setPokemons] = useState('');
+  const [pokemonsId, setPokemonsId] = useState('');
 
   useEffect(() => {
     const getPokemons = async () => {
-      const {data} = await api.get();
+      const {data} = await api.get('pokemon/?limit=60');
       setPokemons(data.results);
     };
     getPokemons();
-  }, []);
+  }, [pokemons]);
 
   const renderPokemons = ({item}) => {
     return (
       <S.ContainerPokemon>
-        <Text>#001</Text>
-        <Text>{item.name}</Text>
+        <View>
+          <View>
+            <PokemonNumber />
+          </View>
+          <S.ContainerNamePokemon>
+            <Name>{item.name}</Name>
+          </S.ContainerNamePokemon>
 
-        <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'row'}}>
-            <Badges type="grass" />
-            <PokemonType>Grass</PokemonType>
+            <View style={{flexDirection: 'row'}} />
           </View>
         </View>
       </S.ContainerPokemon>
@@ -49,7 +54,6 @@ const Home = () => {
   return (
     <S.Container>
       {/* Icones */}
-      {console.log(pokemons)}
       <S.ContainerIcons>
         <S.Icons>
           <Image source={iconGeneration} tintColor={colors.text_black} />
@@ -91,6 +95,7 @@ const Home = () => {
         data={pokemons}
         renderItem={renderPokemons}
         keyExtractor={(_, index) => index}
+        showsVerticalScrollIndicator={false}
       />
     </S.Container>
   );

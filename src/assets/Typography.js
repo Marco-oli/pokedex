@@ -8,6 +8,8 @@ export const Title = styled.Text`
 
 export const Name = styled(Title)`
   font-size: 26px;
+  color: ${colors.text_white};
+  text-transform: capitalize;
 `;
 
 export const FilterTitle = styled(Title)`
@@ -27,4 +29,6 @@ export const PokemonNumber = styled(Title)`
 export const PokemonType = styled.Text`
   font-family: 'Sf-medium';
   font-size: 12px;
+  color: ${colors.text_white};
+  text-transform: capitalize;
 `;

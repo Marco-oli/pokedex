@@ -28,7 +28,6 @@ export const ContainerSearch = styled.View`
   flex-direction: row;
   align-items: center;
   margin-top: 25px;
-  margin-bottom: 45px;
 `;
 
 // Pokemons Card
@@ -38,5 +37,10 @@ export const ContainerPokemon = styled.TouchableOpacity`
   height: 115px;
   border-radius: 10px;
   margin-bottom: 30px;
+  padding: 20px;
   background-color: ${colors.background_bug};
+`;
+
+export const ContainerNamePokemon = styled.View`
+  margin-bottom: 10px;
 `;
